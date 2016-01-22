@@ -32,6 +32,13 @@ ClientListener.class : Point.java
 ClientListener.class : Point.class
 ClientListener.class : Direction.java
 ClientListener.class : Direction.class
+ClientListenerThread.class : ClientListenerThread.java
+ClientListenerThread.class : MSocket.java
+ClientListenerThread.class : MSocket.class
+ClientSenderThread.class : ClientSenderThread.java
+ClientSenderThread.class : MSocket.java
+ClientSenderThread.class : MSocket.class
+Debug.class : Debug.java
 DirectedPoint.class : DirectedPoint.java
 DirectedPoint.class : Direction.java
 DirectedPoint.class : Direction.class
@@ -186,6 +193,8 @@ Mazewar.class : Client.java
 Mazewar.class : Client.class
 Mazewar.class : Maze.java
 Mazewar.class : Maze.class
+Mazewar.class : MPacket.java
+Mazewar.class : MPacket.class
 Mazewar.class : Cell.java
 Mazewar.class : Cell.class
 Mazewar.class : DirectedPoint.java
@@ -196,6 +205,15 @@ Mazewar.class : Direction.java
 Mazewar.class : Direction.class
 Mazewar.class : ClientEvent.java
 Mazewar.class : ClientEvent.class
+Mazewar.class : MSocket.java
+Mazewar.class : MSocket.class
+MPacket.class : MPacket.java
+MPacket.class : Player.java
+MPacket.class : Player.class
+MServerSocket.class: MServerSocket.java
+MServerSocket.class: MSocket.java
+MServerSocket.class: MSocket.class
+MSocket.class : MSocket.java
 OverheadMazePanel.class : OverheadMazePanel.java
 OverheadMazePanel.class : RobotClient.java
 OverheadMazePanel.class : RobotClient.class
@@ -233,6 +251,9 @@ OverheadMazePanel.class : Direction.java
 OverheadMazePanel.class : Direction.class
 OverheadMazePanel.class : ClientEvent.java
 OverheadMazePanel.class : ClientEvent.class
+Player.class: Player.java
+Player.class: Point.java
+Player.class: Point.class
 Point.class : Point.java
 Point.class : Direction.java
 Point.class : Direction.class
@@ -307,6 +328,21 @@ RobotClient.class : Direction.java
 RobotClient.class : Direction.class
 RobotClient.class : ClientEvent.java
 RobotClient.class : ClientEvent.class
+Server.class:Server.java
+Server.class:MPacket.java
+Server.class:MPacket.class
+Server.class:ServerListenerThread.java
+Server.class:ServerListenerThread.class
+Server.class:Player.java
+Server.class:Player.class
+Server.class:ServerSenderThread.java
+Server.class:ServerSenderThread.class
+ServerListenerThread.class:ServerListenerThread.java
+ServerListenerThread.class:MPacket.java
+ServerListenerThread.class:MPacket.class
+ServerSenderThread.class:ServerSenderThread.java
+ServerSenderThread.class:MPacket.java
+ServerSenderThread.class:MPacket.class
 ScoreTableModel.class : ScoreTableModel.java
 ScoreTableModel.class : RobotClient.java
 ScoreTableModel.class : RobotClient.class
