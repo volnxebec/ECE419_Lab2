@@ -38,9 +38,31 @@ To make the project run
 make
 
 To run the server:
-</path/to/java/>java Server <listening port>
+./server.sh <listening port> <number of players (optional, default=2)>
 
 To run the clients: 
-</path/to/java/>java Mazewar <server host> <server port>
+./run.sh <server host> <server port>
+
+
+Changes to Partial Solution
+===========================
+
+1. Consistency when sending packets from client to server (keypress event).
+We added a local sequence number for each packet which tracks the event order seen by the local client from the key press.
+The local client always sends the packets in correct order indicated by the sequence number, but the server may recive them out of order.
+In order to address this issue, we added a buffer to keep these packets in order for each server listener instance.
+The packet are kept in the buffer until the correct sequence number packet arrives, then the said packet and next continuous packets are put into the server event queue.
+For example, if packets arrive in the buffer in the following order: 1,2,4,5,6,3.  Then 1 and 2 will be sent to the server event queue. 4,5, and 6 will be stored in the buffer until 3 arrives.  Then 3,4,5,6 are sent to the serer event queue.
+
+2. Consistency when sending packets from server to client.
+Similar to the above case, the packets can be sent to the client in the wrong order. 
+We used the exact same method to reorder the packets in the correct order, but we used the global sequence number instead of the local sequence number.
+
+3. Allowing up to 4 players to play the game.
+We modified the shell script as well as the Server.java to take in the number of players as an optional argument (the default is 2).
+Note: we cannot change the number of players midgame.
+
+
+
 
 
