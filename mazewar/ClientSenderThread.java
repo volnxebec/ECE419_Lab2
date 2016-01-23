@@ -6,11 +6,15 @@ public class ClientSenderThread implements Runnable {
 
     private MSocket mSocket = null;
     private BlockingQueue<MPacket> eventQueue = null;
+    private int localSequenceNumber;
+
     
     public ClientSenderThread(MSocket mSocket,
                               BlockingQueue eventQueue){
         this.mSocket = mSocket;
         this.eventQueue = eventQueue;
+        this.localSequenceNumber = 0;
+
     }
     
     public void run() {
@@ -20,6 +24,8 @@ public class ClientSenderThread implements Runnable {
             try{                
                 //Take packet from queue
                 toServer = (MPacket)eventQueue.take();
+                toServer.localSequenceNumber = localSequenceNumber;
+                localSequenceNumber++;
                 if(Debug.debug) System.out.println("Sending " + toServer);
                 mSocket.writeObject(toServer);    
             }catch(InterruptedException e){
