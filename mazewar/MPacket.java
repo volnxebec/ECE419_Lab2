@@ -30,6 +30,10 @@ public class MPacket implements Serializable {
     //The sequence number of the event
     public int sequenceNumber;
 
+    //The local sequence number of the event
+    // Due to Client -> Server action reordering
+    public int localSequenceNumber;
+
     //These are used to initialize the board
     public int mazeSeed;
     public int mazeHeight;
@@ -89,8 +93,8 @@ public class MPacket implements Serializable {
                 break;        
         }
         //MPACKET(NAME: name, <typestr: eventStr>, SEQNUM: sequenceNumber)
-        String retString = String.format("MPACKET(NAME: %s, <%s: %s>, SEQNUM: %s)", name, 
-            typeStr, eventStr, sequenceNumber);
+        String retString = String.format("MPACKET(NAME: %s, <%s: %s>, SEQNUM: %s, LCLSEQNUM: %s)", name, 
+            typeStr, eventStr, sequenceNumber, localSequenceNumber);
         return retString;
     }
 

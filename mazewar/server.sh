@@ -3,10 +3,12 @@
 ECE419_HOME=/cad2/ece419s/
 JAVA_HOME=/usr/
 
-if [ "$#" -ne 1 ]; then
-    echo "Usage: ./server.sh  <port>"
+if [ "$#" -eq 1 ] || [ "$#" -eq 2 ]; then
+  echo "good"
+else 
+    echo "Usage: ./server.sh  <port> <number of players (optional)>"
     exit 1
 fi
 
-${JAVA_HOME}/bin/java Server $1 
+${JAVA_HOME}/bin/java Server $1 $2 
 

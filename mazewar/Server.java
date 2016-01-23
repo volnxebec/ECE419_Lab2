@@ -6,7 +6,7 @@ public class Server {
     
 	//The maximum of clients that will join
 	//Server waits until the max number of clients to join 
-    private static final int MAX_CLIENTS = 2;
+    private int MAX_CLIENTS = 2;
     private MServerSocket mServerSocket = null;
     private int clientCount; //The number of clients before game starts
     private MSocket[] mSocketList = null; //A list of MSockets
@@ -15,9 +15,10 @@ public class Server {
     /*
     * Constructor
     */
-    public Server(int port) throws IOException{
+    public Server(int port, int players) throws IOException{
         clientCount = 0; 
         mServerSocket = new MServerSocket(port);
+        MAX_CLIENTS = players;
         if(Debug.debug) System.out.println("Listening on port: " + port);
         mSocketList = new MSocket[MAX_CLIENTS];
         eventQueue = new LinkedBlockingQueue<MPacket>();
@@ -50,7 +51,19 @@ public class Server {
     public static void main(String args[]) throws IOException {
         if(Debug.debug) System.out.println("Starting the server");
         int port = Integer.parseInt(args[0]);
-        Server server = new Server(port);
+        int players = 2;
+        //We also have player number...
+        if (args.length > 1) {
+          if(Debug.debug) System.out.println("I'm here");
+          players = Integer.parseInt(args[1]);
+          if(Debug.debug) System.out.println(args[1]);
+          if (players < 2 || players > 4) {
+            System.err.println("ERROR: Invalid number of players");
+            System.exit(-1);
+          }
+        }
+        if(Debug.debug) System.out.println("NUMBER OF PLAYERS: "+players);
+        Server server = new Server(port, players);
                 
         server.startThreads();    
 

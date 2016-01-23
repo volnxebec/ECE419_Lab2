@@ -7,14 +7,14 @@ public class ClientListenerThread implements Runnable {
 
     private MSocket mSocket  =  null;
     private Hashtable<String, Client> clientTable = null;
-    private HashMap<Integer, MPacket> clientQueue = null;
+    private HashMap<Integer, MPacket> clientBuffer = null;
     private int globalSequenceNumber;
 
     public ClientListenerThread( MSocket mSocket,
                                 Hashtable<String, Client> clientTable){
         this.mSocket = mSocket;
         this.clientTable = clientTable;
-        this.clientQueue = new HashMap<Integer, MPacket>();
+        this.clientBuffer = new HashMap<Integer, MPacket>();
         this.globalSequenceNumber = 0;
         if(Debug.debug) System.out.println("Instatiating ClientListenerThread");
     }
@@ -27,13 +27,13 @@ public class ClientListenerThread implements Runnable {
         while(true){
             try{
                 received = (MPacket) mSocket.readObject();
-                clientQueue.put(received.sequenceNumber, received);
+                clientBuffer.put(received.sequenceNumber, received);
 
                 System.out.println("Received " + received);
 
-                while (!clientQueue.isEmpty()) {
+                while (!clientBuffer.isEmpty()) {
                   try {
-                    current = clientQueue.get(globalSequenceNumber);
+                    current = clientBuffer.get(globalSequenceNumber);
                     //Do stuff
                     client = clientTable.get(current.name);
 
@@ -53,7 +53,7 @@ public class ClientListenerThread implements Runnable {
                         throw new UnsupportedOperationException();
                     }
                     //Finish stuff
-                    clientQueue.remove(globalSequenceNumber);
+                    clientBuffer.remove(globalSequenceNumber);
                     globalSequenceNumber++;
                   }
                   catch (NullPointerException e) {
