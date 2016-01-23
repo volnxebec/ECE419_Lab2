@@ -29,7 +29,7 @@ public class ClientListenerThread implements Runnable {
                 received = (MPacket) mSocket.readObject();
                 clientBuffer.put(received.sequenceNumber, received);
 
-                System.out.println("Received " + received);
+                System.out.println("ClientListener Received " + received);
 
                 while (!clientBuffer.isEmpty()) {
                   try {
@@ -37,7 +37,7 @@ public class ClientListenerThread implements Runnable {
                     //Do stuff
                     client = clientTable.get(current.name);
 
-                    System.out.println("----Starting " + current);
+                    System.out.println("ClientListener Starting " + current);
 
                     if(current.event == MPacket.UP){
                         client.forward();

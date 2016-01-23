@@ -27,16 +27,16 @@ public class ServerListenerThread implements Runnable {
             try{
                 received = (MPacket) mSocket.readObject();
                 serverBuffer.put(received.localSequenceNumber, received);
-                if(Debug.debug) System.out.println("Received: " + received);
+                if(Debug.debug) System.out.println("ServerListener Received: " + received);
 
                 while (!serverBuffer.isEmpty()) {
                   try {
                     current = serverBuffer.get(localSequenceNumber);
                     //Do stuff
                    
-                    System.out.println("----Starting " + current);
+                    System.out.println("ServerListener Starting " + current);
 
-                    eventQueue.put(received);   
+                    eventQueue.put(current);   
 
                     //Finish stuff
                     serverBuffer.remove(localSequenceNumber);
