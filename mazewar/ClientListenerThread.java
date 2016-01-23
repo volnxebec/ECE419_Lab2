@@ -27,7 +27,7 @@ public class ClientListenerThread implements Runnable {
         while(true){
             try{
                 received = (MPacket) mSocket.readObject();
-                clientQueue.put(globalSequenceNumber, received);
+                clientQueue.put(received.sequenceNumber, received);
 
                 System.out.println("Received " + received);
 
@@ -36,6 +36,9 @@ public class ClientListenerThread implements Runnable {
                     current = clientQueue.get(globalSequenceNumber);
                     //Do stuff
                     client = clientTable.get(current.name);
+
+                    System.out.println("----Starting " + current);
+
                     if(current.event == MPacket.UP){
                         client.forward();
                     }else if(current.event == MPacket.DOWN){
