@@ -32,7 +32,7 @@ public class Direction {
         /**
          * Create a random number generator to produce random directions.
          */
-        //private static Random randomGen = new Random();
+        private static Random randomGen = new Random();
         
         /** 
          * Internal representation of directions
@@ -50,7 +50,7 @@ public class Direction {
         /** 
          * Create a new direction from an internal representation
          */
-        private Direction(int direction) {
+        public Direction(int direction) {
                 assert((direction >= 0) && (direction < 4));
                 this.direction = direction;
         }
@@ -92,7 +92,6 @@ public class Direction {
          * @return A random Cardinal {@link Direction}.
          */
         public static Direction random(long seed) {
-                Random randomGen = new Random(seed);
                 switch(randomGen.nextInt(4)) {
                         case NORTH:
                                 return South;
