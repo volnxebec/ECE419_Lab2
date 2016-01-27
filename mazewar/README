@@ -38,7 +38,7 @@ To make the project run
 make
 
 To run the server:
-./server.sh <listening port> <number of players (optional, default=2)>
+./server.sh <listening port> <number of players (optional, default=4)>
 
 To run the clients: 
 ./run.sh <server host> <server port>
@@ -59,10 +59,15 @@ Similar to the above case, the packets can be sent to the client in the wrong or
 We used the exact same method to reorder the packets in the correct order, but we used the global sequence number instead of the local sequence number.
 
 3. Allowing up to 4 players to play the game.
-We modified the shell script as well as the Server.java to take in the number of players as an optional argument (the default is 2).
+We modified the shell script as well as the Server.java to take in the number of players as an optional argument (the default is 4).
 Note: we cannot change the number of players midgame.
 
+4. Consistency for the direction when client spawns
+The original code had a random with no seed for the direction when respawning. This sometimes caused the clients to have different directions after respawning. We fixed this by using a same seed for all direction randomization when respawning to ensure that all clients will face the same direction.
 
+5. Unfixed bugs...
+->Direction visual bug. Sometimes the client faces one direction on the GUI but is actually facing another when moving. Though this is consistent between all clients.
+->Bullet fire and moving at same time bug. Sometimes when a player repeatedly presses Up, Down, and Fire rapidly, some clients will see different positions for that player.  We concluded that this was due to a client receiving all packets at once and the bullet obstructing the movement of the client.  For example, a client is facing upwards. He fires a projectile, then immediately tries to go Up, but the projectile is blocking the movement of the player.  
 
 
 
