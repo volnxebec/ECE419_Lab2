@@ -44,6 +44,8 @@ import java.util.HashMap;
 
 public class MazeImpl extends Maze implements Serializable, ClientListener, Runnable {
 
+        private long mazeSeed;
+
         /**
          * Create a {@link Maze}.
          * @param point Treat the {@link Point} as a magintude specifying the
@@ -72,6 +74,8 @@ public class MazeImpl extends Maze implements Serializable, ClientListener, Runn
 
                 // Initialized the random number generator
                 randomGen = new Random(seed);
+
+                mazeSeed = seed;
                 
                 // Build the maze starting at the corner
                 if(seed == 0)
@@ -457,9 +461,9 @@ public class MazeImpl extends Maze implements Serializable, ClientListener, Runn
                 assert(client != null);
                 assert(checkBounds(point));
                 CellImpl cell = getCellImpl(point);
-                Direction d = Direction.random();
+                Direction d = Direction.random(mazeSeed);
                 while(cell.isWall(d)) {
-                  d = Direction.random();
+                  d = Direction.random(mazeSeed);
                 }
                 cell.setContents(client);
                 clientMap.put(client, new DirectedPoint(point, d));
@@ -492,9 +496,9 @@ public class MazeImpl extends Maze implements Serializable, ClientListener, Runn
                         point = new Point(randomGen.nextInt(maxX),randomGen.nextInt(maxY));
                         cell = getCellImpl(point);
                 }
-                Direction d = Direction.random();
+                Direction d = Direction.random(mazeSeed);
                 while(cell.isWall(d)) {
-                        d = Direction.random();
+                        d = Direction.random(mazeSeed);
                 }
                 cell.setContents(target);
                 clientMap.put(target, new DirectedPoint(point, d));
