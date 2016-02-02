@@ -6,7 +6,7 @@ public class Server {
     
 	//The maximum of clients that will join
 	//Server waits until the max number of clients to join 
-    private int MAX_CLIENTS = 2;
+    private int MAX_CLIENTS = 4;
     private MServerSocket mServerSocket = null;
     private int clientCount; //The number of clients before game starts
     private MSocket[] mSocketList = null; //A list of MSockets
@@ -51,7 +51,7 @@ public class Server {
     public static void main(String args[]) throws IOException {
         if(Debug.debug) System.out.println("Starting the server");
         int port = Integer.parseInt(args[0]);
-        int players = 2;
+        int players = 4;
         //We also have player number...
         if (args.length > 1) {
           if(Debug.debug) System.out.println("I'm here");

@@ -184,6 +184,10 @@ public class Mazewar extends JFrame {
                 //Initialize hash table of clients to client name 
                 clientTable = new Hashtable<String, Client>(); 
                 
+                //Link eventQueue with MazeImpl instance
+                maze.linkEventQueue(eventQueue);
+                maze.setMyName(name);
+
                 // Create the GUIClient and connect it to the KeyListener queue
                 //RemoteClient remoteClient = null;
                 for(Player player: resp.players){  

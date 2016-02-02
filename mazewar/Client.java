@@ -180,7 +180,22 @@ public abstract class Client {
                         return false;
                 }
         }
-        
+
+        /**
+         * Move a projectile
+         * 
+         */
+        protected boolean projectileMove(MPacket pkt) {
+          assert(maze != null);
+          System.out.println("Client waiting to move projectile " + pkt);
+          if(maze.clientProjectileMove(pkt)) {
+            System.out.println("Client finished to move projectile " + pkt);
+            notifyProjectileMove();
+            return true;
+          } else {
+            return false;
+          }
+        }
         
         /** 
          * Notify listeners that the client moved forward.
@@ -215,6 +230,13 @@ public abstract class Client {
          */
         private void notifyFire() {
                 notifyListeners(ClientEvent.fire);       
+        }
+
+        /**
+         * Notify listeners that the projectile moved
+         */
+        private void notifyProjectileMove() {
+          notifyListeners(ClientEvent.projectileMove);
         }
         
         /**

@@ -19,6 +19,7 @@ public class MPacket implements Serializable {
     public static final int LEFT = 203;
     public static final int RIGHT = 204;
     public static final int FIRE = 205;
+    public static final int PROJECTILE_MOVE = 206;
     
     //These fields characterize the event  
     public int type;
@@ -33,6 +34,8 @@ public class MPacket implements Serializable {
     //The local sequence number of the event
     // Due to Client -> Server action reordering
     public int localSequenceNumber;
+
+    public int projectileMoveID;
 
     //These are used to initialize the board
     public int mazeSeed;
@@ -88,13 +91,16 @@ public class MPacket implements Serializable {
             case 205:
                 eventStr = "FIRE";
                 break;
+            case 206:
+                eventStr = "PROJECTILE MOVE";
+                break;
             default:
                 eventStr = "ERROR";
                 break;        
         }
         //MPACKET(NAME: name, <typestr: eventStr>, SEQNUM: sequenceNumber)
-        String retString = String.format("MPACKET(NAME: %s, <%s: %s>, SEQNUM: %s, LCLSEQNUM: %s)", name, 
-            typeStr, eventStr, sequenceNumber, localSequenceNumber);
+        String retString = String.format("MPACKET(NAME: %s, <%s: %s>, SEQNUM: %s, LCLSEQNUM: %s, ID: %s)", name, 
+            typeStr, eventStr, sequenceNumber, localSequenceNumber, projectileMoveID);
         return retString;
     }
 
