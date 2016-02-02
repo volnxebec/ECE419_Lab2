@@ -525,6 +525,13 @@ public class MazeImpl extends Maze implements Serializable, ClientListener, Runn
                 projectileMap.put(prj, newPoint);
                 newCell.setContents(prj);
                 update();
+                
+                try {
+                  thread.sleep(200);
+                } catch(Exception e) {
+                  // shouldn't happen
+                }
+
                 //Now add an event to move this packet...
                 try {
                   if (myName == prj.getOwner().getName()) {

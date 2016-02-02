@@ -188,13 +188,23 @@ public abstract class Client {
         protected boolean projectileMove(MPacket pkt) {
           assert(maze != null);
           System.out.println("Client waiting to move projectile " + pkt);
-          if(maze.clientProjectileMove(pkt)) {
-            System.out.println("Client finished to move projectile " + pkt);
-            notifyProjectileMove();
-            return true;
-          } else {
-            return false;
+
+          class OneShotTask implements Runnable {
+            MPacket pkt;
+            OneShotTask(MPacket pkt) {this.pkt = pkt;}
+            public void run(){ 
+              if(maze.clientProjectileMove(pkt)) {
+                System.out.println("Client finished to move projectile " + pkt);
+                notifyProjectileMove();
+                //return true;
+              } else {
+                //return false;
+              }
+            }
           }
+  
+          new Thread(new OneShotTask(pkt)).start();
+          return true;
         }
         
         /** 
